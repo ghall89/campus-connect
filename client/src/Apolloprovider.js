@@ -11,8 +11,8 @@ import { getMainDefinition } from '@apollo/client/utilities';
 
 let httpLink = createHttpLink({
 	// uri: 'http://localhost:3001/graphql/',
-	uri: 'https://jana-campus-connect.herokuapp.com/graphql/',
-})
+	uri: 'https://campus-connect21.herokuapp.com/graphql/'
+});
 
 const authLink = setContext((_, { headers }) => {
 	// // get the authentication token from local storage if it exists
@@ -30,14 +30,14 @@ httpLink = authLink.concat(httpLink);
 
 const wsLink = new WebSocketLink({
 	// uri: 'ws://localhost:3001/graphql',
-	uri: 'wss://jana-campus-connect.herokuapp.com/graphql',
+	uri: 'wss://campus-connect21.herokuapp.com/graphql',
 	options: {
 		reconnect: true,
 		connectionParams: {
-			Authorization: `Bearer ${localStorage.getItem('token')}`,
-		},
-	},
-})
+			Authorization: `Bearer ${localStorage.getItem('token')}`
+		}
+	}
+});
 
 const splitLink = split(
 	({ query }) => {
@@ -61,5 +61,3 @@ const ApolloProvider = props => {
 };
 
 export default ApolloProvider;
-
-
